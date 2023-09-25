@@ -19,6 +19,7 @@ import { ethers } from "ethers";
 import { EditionMetadataWithOwnerOutputSchema } from "@thirdweb-dev/sdk";
 
 const StateContext = createContext();
+const Certificate = createContext();
 
 export const StateContextProvider = ({ children }) => {
   // const { mutateAsync: issueCertificate } = useContractWrite(
@@ -87,6 +88,7 @@ export const StateContextProvider = ({ children }) => {
       console.log("contract call success", data);
     } catch (error) {
       console.log("contract call failure", error);
+      alert("You are not a authorized issuer");
     }
   };
 
@@ -111,9 +113,20 @@ export const StateContextProvider = ({ children }) => {
     const contract = new Contract(NFT_CONTRACT_ADDRESS_2, abi2, signer);
     console.log("getting by address");
     try {
-      const data = await contract.getCertificateByAddress(recipientAddress);
-      // console.log(form);
-      console.log("contract call success", data);
+      const pre_data = await contract.getCertificateByAddress(recipientAddress);
+
+      return [pre_data];
+    } catch (error) {
+      console.log("contract call failure", error);
+    }
+  };
+  const validateCertificate = async (certificatId) => {
+    const signer = await getProviderOrSigner(true);
+    const contract = new Contract(NFT_CONTRACT_ADDRESS_2, abi2, signer);
+    console.log("getting by address");
+    try {
+      const pre_data = await contract.validateCertificate(certificatId);
+      return pre_data;
     } catch (error) {
       console.log("contract call failure", error);
     }
@@ -126,6 +139,7 @@ export const StateContextProvider = ({ children }) => {
         issueCertificate: publishCertificate,
         getCertificate,
         getCertificateByAddress,
+        validateCertificate,
       }}
     >
       {children}
@@ -134,3 +148,4 @@ export const StateContextProvider = ({ children }) => {
 };
 
 export const useStateContext = () => useContext(StateContext);
+export { Certificate };
