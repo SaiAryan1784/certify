@@ -8,6 +8,7 @@ import {
   about,
   Payment,
   Validate,
+  Logout,
 } from "./pages";
 import { Sidebar, Navbar } from "./components";
 const App = () => {
@@ -27,8 +28,7 @@ const App = () => {
           <Route path="/Payment" element={<Payment />}></Route>
           <Route path="/profile" element={<Profile />}></Route>
           <Route path="/Validate" element={<Validate />}></Route>
-          {/* <Route path="/verification" element={<verification />}></Route> */}
-          {/* <Route path="/about" element={<about />}></Route> */}
+          <Route path="/Logout" element={<Logout />}></Route>
         </Routes>
       </div>
     </div>

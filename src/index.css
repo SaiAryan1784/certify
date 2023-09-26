@@ -33,12 +33,13 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     margin-bottom: 1rem;
 }
 .certificateNumber {
-    text-align: center;
-    text-transform: capitalize;
-    color: #3c966b;
-    font-weight: bold;
-    text-decoration: underline;
-    margin-bottom: 25px;
+  text-align: center;
+  text-transform: uppercase;
+  color: #3c966b;
+  font-weight: bold;
+  text-decoration: underline;
+  margin-bottom: 25px;
+
 }
 
 span {
@@ -61,4 +62,34 @@ span {
     text-align: center;
     padding: 0.5rem;
     border-radius: 0.5rem;
+}
+.valid {
+  font-size: 2rem;
+  font-weight: bolder;
+  color: #1dc071;
+}
+.invalid {
+  font-size: 2rem;
+  font-weight: bolder;
+  color: red;
+}
+.search_iconbox {
+  margin-left: 1rem;
+}
+
+#txt {
+  text-align: center;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  width: 100%;
+}
+.container_outer {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+}
+.qr-code {
+  padding: 10px;
+  background-color: white;
 }
