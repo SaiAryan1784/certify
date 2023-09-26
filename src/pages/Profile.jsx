@@ -2,11 +2,14 @@ import React, { useState, useEffect } from "react";
 import { search } from "../assets";
 import { useStateContext } from "../context";
 import { useAddress } from "@thirdweb-dev/react";
+import QRCode from "qrcode.react"; // Import the QRCode component
 
 const Profile = () => {
+  const address = useAddress();
+  console.log(address);
+  if (address === undefined) return;
   const { getCertificateByAddress } = useStateContext();
   const [certificateData, setCertificateData] = useState([]);
-  const address = useAddress();
 
   useEffect(() => {
     const getCall = async () => {
@@ -39,23 +42,33 @@ const Profile = () => {
                 rel="noopener noreferrer"
                 key={index}
               >
-                <div className="container_inner">
-                  <h2 className="certificateNumber">Certificate {index + 1}</h2>
-                  <p>
-                    <span>Certificate Type:</span> {certificate.certificateType}
-                  </p>
-                  <p>
-                    <span>Date of Issue:</span> {certificate.dateOfIssue}
-                  </p>
-                  <p>
-                    <span>IPFS Hash</span> {certificate.ipfsHash}
-                  </p>
-                  <p>
-                    <span>Issuer:</span> {certificate.issuer}
-                  </p>
-                  <p>
-                    <span>Recipient:</span> {certificate.recipient}
-                  </p>
+                <div className="container_outer">
+                  <div className="container_inner">
+                    <h2 className="certificateNumber">
+                      Certificate {index + 1}
+                    </h2>
+                    <p>
+                      <span>Certificate Type:</span>{" "}
+                      {certificate.certificateType}
+                    </p>
+                    <p>
+                      <span>Date of Issue:</span> {certificate.dateOfIssue}
+                    </p>
+                    <p>
+                      <span>IPFS Hash</span> {certificate.ipfsHash}
+                    </p>
+                    <p>
+                      <span>Issuer:</span> {certificate.issuer}
+                    </p>
+                    <p>
+                      <span>Recipient:</span> {certificate.recipient}
+                    </p>
+                  </div>
+                  <div className="qr-code">
+                    <QRCode
+                      value={`https://bronze-mammoth-vicuna-556.mypinata.cloud/ipfs/${certificate.ipfsHash}`}
+                    />
+                  </div>
                 </div>
               </a>
             ))}

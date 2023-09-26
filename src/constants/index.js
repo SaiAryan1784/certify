@@ -8,7 +8,7 @@ import {
 } from "../assets";
 
 export const NFT_CONTRACT_ADDRESS_2 =
-  "0x5EdBf57aCc82296802E704C7F24070436104424C";
+  "0x878583fb71C72370079E252C5b8C2985Ef786412";
 export const abi2 = [
   {
     type: "constructor",
@@ -143,6 +143,55 @@ export const abi2 = [
         type: "uint256",
         name: "",
         internalType: "uint256",
+      },
+    ],
+    outputs: [
+      {
+        type: "uint256",
+        name: "certificateId",
+        internalType: "uint256",
+      },
+      {
+        type: "address",
+        name: "recipient",
+        internalType: "address",
+      },
+      {
+        type: "address",
+        name: "issuer",
+        internalType: "address",
+      },
+      {
+        type: "string",
+        name: "certificateType",
+        internalType: "string",
+      },
+      {
+        type: "string",
+        name: "dateOfIssue",
+        internalType: "string",
+      },
+      {
+        type: "string",
+        name: "ipfsHash",
+        internalType: "string",
+      },
+      {
+        type: "bool",
+        name: "revoked",
+        internalType: "bool",
+      },
+    ],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
+    name: "certificatesByHash",
+    inputs: [
+      {
+        type: "string",
+        name: "",
+        internalType: "string",
       },
     ],
     outputs: [
@@ -361,9 +410,9 @@ export const abi2 = [
     name: "validateCertificate",
     inputs: [
       {
-        type: "uint256",
-        name: "_certificateId",
-        internalType: "uint256",
+        type: "string",
+        name: "_ipfsHash",
+        internalType: "string",
       },
     ],
     outputs: [
@@ -406,7 +455,6 @@ export const navlinks = [
   {
     name: "logout",
     imgUrl: logout,
-    link: "/",
-    disabled: true,
+    link: "/Logout",
   },
 ];
