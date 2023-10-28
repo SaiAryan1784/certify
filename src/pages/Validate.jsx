@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import { search } from "../assets";
 import { useStateContext } from "../context";
 
+
 const Validate = () => {
   const [searchTerm, setSearchTerm] = useState(""); // State to store the search term
   const certificateIDRef = useRef(null); // Define the ref here
