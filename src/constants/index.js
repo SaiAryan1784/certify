@@ -7,62 +7,17 @@ import {
   withdraw,
 } from "../assets";
 
-export const NFT_CONTRACT_ADDRESS_2 =
-  "0x878583fb71C72370079E252C5b8C2985Ef786412";
-export const abi2 = [
+export const NFT_CONTRACT_ADDRESS =
+  "0x2Fa6CA0C37CFB0E7311a1573F5a9E69148fe1077";
+export const abi = [
   {
-    type: "constructor",
-    name: "",
-    inputs: [],
-    outputs: [],
-    stateMutability: "nonpayable",
-  },
-  {
-    type: "event",
-    name: "CertificateIssued",
+    type: "function",
+    name: "addParticipants",
     inputs: [
       {
         type: "uint256",
-        name: "certificateId",
-        indexed: true,
+        name: "_id",
         internalType: "uint256",
-      },
-      {
-        type: "address",
-        name: "recipient",
-        indexed: true,
-        internalType: "address",
-      },
-      {
-        type: "string",
-        name: "certificateType",
-        indexed: false,
-        internalType: "string",
-      },
-      {
-        type: "string",
-        name: "dateOfIssue",
-        indexed: false,
-        internalType: "string",
-      },
-      {
-        type: "string",
-        name: "ipfsHash",
-        indexed: false,
-        internalType: "string",
-      },
-    ],
-    outputs: [],
-    anonymous: false,
-  },
-  {
-    type: "function",
-    name: "addIssuer",
-    inputs: [
-      {
-        type: "address",
-        name: "_newIssuer",
-        internalType: "address",
       },
     ],
     outputs: [],
@@ -70,248 +25,149 @@ export const abi2 = [
   },
   {
     type: "function",
-    name: "certificateCounter",
+    name: "campaigns",
+    inputs: [
+      {
+        type: "uint256",
+        name: "",
+        internalType: "uint256",
+      },
+    ],
+    outputs: [
+      {
+        type: "uint256",
+        name: "id",
+        internalType: "uint256",
+      },
+      {
+        type: "address",
+        name: "owner",
+        internalType: "address",
+      },
+      {
+        type: "string",
+        name: "title",
+        internalType: "string",
+      },
+      {
+        type: "string",
+        name: "description",
+        internalType: "string",
+      },
+      {
+        type: "string",
+        name: "location",
+        internalType: "string",
+      },
+      {
+        type: "string",
+        name: "date",
+        internalType: "string",
+      },
+      {
+        type: "string",
+        name: "duration",
+        internalType: "string",
+      },
+      {
+        type: "uint256",
+        name: "deadline",
+        internalType: "uint256",
+      },
+      {
+        type: "uint256",
+        name: "amountCollected",
+        internalType: "uint256",
+      },
+      {
+        type: "string",
+        name: "imageIpfs",
+        internalType: "string",
+      },
+      {
+        type: "uint256",
+        name: "numberOfParticipants",
+        internalType: "uint256",
+      },
+      {
+        type: "bool",
+        name: "closed",
+        internalType: "bool",
+      },
+    ],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
+    name: "createCampaign",
+    inputs: [
+      {
+        type: "address",
+        name: "_owner",
+        internalType: "address",
+      },
+      {
+        type: "string",
+        name: "_title",
+        internalType: "string",
+      },
+      {
+        type: "string",
+        name: "_description",
+        internalType: "string",
+      },
+      {
+        type: "string",
+        name: "location",
+        internalType: "string",
+      },
+      {
+        type: "string",
+        name: "date",
+        internalType: "string",
+      },
+      {
+        type: "string",
+        name: "duration",
+        internalType: "string",
+      },
+      {
+        type: "uint256",
+        name: "_deadline",
+        internalType: "uint256",
+      },
+      {
+        type: "string",
+        name: "_imageIpfs",
+        internalType: "string",
+      },
+    ],
+    outputs: [
+      {
+        type: "uint256",
+        name: "",
+        internalType: "uint256",
+      },
+    ],
+    stateMutability: "nonpayable",
+  },
+  {
+    type: "function",
+    name: "donateToCampaign",
+    inputs: [
+      {
+        type: "uint256",
+        name: "_id",
+        internalType: "uint256",
+      },
+    ],
+    outputs: [],
+    stateMutability: "payable",
+  },
+  {
+    type: "function",
+    name: "getCampaigns",
     inputs: [],
-    outputs: [
-      {
-        type: "uint256",
-        name: "",
-        internalType: "uint256",
-      },
-    ],
-    stateMutability: "view",
-  },
-  {
-    type: "function",
-    name: "certificates",
-    inputs: [
-      {
-        type: "uint256",
-        name: "",
-        internalType: "uint256",
-      },
-    ],
-    outputs: [
-      {
-        type: "uint256",
-        name: "certificateId",
-        internalType: "uint256",
-      },
-      {
-        type: "address",
-        name: "recipient",
-        internalType: "address",
-      },
-      {
-        type: "address",
-        name: "issuer",
-        internalType: "address",
-      },
-      {
-        type: "string",
-        name: "certificateType",
-        internalType: "string",
-      },
-      {
-        type: "string",
-        name: "dateOfIssue",
-        internalType: "string",
-      },
-      {
-        type: "string",
-        name: "ipfsHash",
-        internalType: "string",
-      },
-      {
-        type: "bool",
-        name: "revoked",
-        internalType: "bool",
-      },
-    ],
-    stateMutability: "view",
-  },
-  {
-    type: "function",
-    name: "certificatesByAddress",
-    inputs: [
-      {
-        type: "address",
-        name: "",
-        internalType: "address",
-      },
-      {
-        type: "uint256",
-        name: "",
-        internalType: "uint256",
-      },
-    ],
-    outputs: [
-      {
-        type: "uint256",
-        name: "certificateId",
-        internalType: "uint256",
-      },
-      {
-        type: "address",
-        name: "recipient",
-        internalType: "address",
-      },
-      {
-        type: "address",
-        name: "issuer",
-        internalType: "address",
-      },
-      {
-        type: "string",
-        name: "certificateType",
-        internalType: "string",
-      },
-      {
-        type: "string",
-        name: "dateOfIssue",
-        internalType: "string",
-      },
-      {
-        type: "string",
-        name: "ipfsHash",
-        internalType: "string",
-      },
-      {
-        type: "bool",
-        name: "revoked",
-        internalType: "bool",
-      },
-    ],
-    stateMutability: "view",
-  },
-  {
-    type: "function",
-    name: "certificatesByHash",
-    inputs: [
-      {
-        type: "string",
-        name: "",
-        internalType: "string",
-      },
-    ],
-    outputs: [
-      {
-        type: "uint256",
-        name: "certificateId",
-        internalType: "uint256",
-      },
-      {
-        type: "address",
-        name: "recipient",
-        internalType: "address",
-      },
-      {
-        type: "address",
-        name: "issuer",
-        internalType: "address",
-      },
-      {
-        type: "string",
-        name: "certificateType",
-        internalType: "string",
-      },
-      {
-        type: "string",
-        name: "dateOfIssue",
-        internalType: "string",
-      },
-      {
-        type: "string",
-        name: "ipfsHash",
-        internalType: "string",
-      },
-      {
-        type: "bool",
-        name: "revoked",
-        internalType: "bool",
-      },
-    ],
-    stateMutability: "view",
-  },
-  {
-    type: "function",
-    name: "contractOwner",
-    inputs: [],
-    outputs: [
-      {
-        type: "address",
-        name: "",
-        internalType: "address",
-      },
-    ],
-    stateMutability: "view",
-  },
-  {
-    type: "function",
-    name: "getCertificate",
-    inputs: [
-      {
-        type: "uint256",
-        name: "_certificateId",
-        internalType: "uint256",
-      },
-    ],
-    outputs: [
-      {
-        type: "tuple",
-        name: "",
-        components: [
-          {
-            type: "uint256",
-            name: "certificateId",
-            internalType: "uint256",
-          },
-          {
-            type: "address",
-            name: "recipient",
-            internalType: "address",
-          },
-          {
-            type: "address",
-            name: "issuer",
-            internalType: "address",
-          },
-          {
-            type: "string",
-            name: "certificateType",
-            internalType: "string",
-          },
-          {
-            type: "string",
-            name: "dateOfIssue",
-            internalType: "string",
-          },
-          {
-            type: "string",
-            name: "ipfsHash",
-            internalType: "string",
-          },
-          {
-            type: "bool",
-            name: "revoked",
-            internalType: "bool",
-          },
-        ],
-        internalType: "struct certify.Certificate",
-      },
-    ],
-    stateMutability: "view",
-  },
-  {
-    type: "function",
-    name: "getCertificateByAddress",
-    inputs: [
-      {
-        type: "address",
-        name: "_recipent",
-        internalType: "address",
-      },
-    ],
     outputs: [
       {
         type: "tuple[]",
@@ -319,107 +175,118 @@ export const abi2 = [
         components: [
           {
             type: "uint256",
-            name: "certificateId",
+            name: "id",
             internalType: "uint256",
           },
           {
             type: "address",
-            name: "recipient",
-            internalType: "address",
-          },
-          {
-            type: "address",
-            name: "issuer",
+            name: "owner",
             internalType: "address",
           },
           {
             type: "string",
-            name: "certificateType",
+            name: "title",
             internalType: "string",
           },
           {
             type: "string",
-            name: "dateOfIssue",
+            name: "description",
             internalType: "string",
           },
           {
             type: "string",
-            name: "ipfsHash",
+            name: "location",
             internalType: "string",
+          },
+          {
+            type: "string",
+            name: "date",
+            internalType: "string",
+          },
+          {
+            type: "string",
+            name: "duration",
+            internalType: "string",
+          },
+          {
+            type: "uint256",
+            name: "deadline",
+            internalType: "uint256",
+          },
+          {
+            type: "uint256",
+            name: "amountCollected",
+            internalType: "uint256",
+          },
+          {
+            type: "string",
+            name: "imageIpfs",
+            internalType: "string",
+          },
+          {
+            type: "address[]",
+            name: "participantsAddress",
+            internalType: "address[]",
+          },
+          {
+            type: "uint256",
+            name: "numberOfParticipants",
+            internalType: "uint256",
+          },
+          {
+            type: "address[]",
+            name: "donators",
+            internalType: "address[]",
+          },
+          {
+            type: "uint256[]",
+            name: "donations",
+            internalType: "uint256[]",
           },
           {
             type: "bool",
-            name: "revoked",
+            name: "closed",
             internalType: "bool",
           },
         ],
-        internalType: "struct certify.Certificate[]",
+        internalType: "struct CrowdFunding.Campaign[]",
       },
     ],
     stateMutability: "view",
   },
   {
     type: "function",
-    name: "isAuthorizedIssuer",
+    name: "getDonators",
     inputs: [
       {
-        type: "address",
-        name: "",
-        internalType: "address",
+        type: "uint256",
+        name: "_id",
+        internalType: "uint256",
       },
     ],
     outputs: [
       {
-        type: "bool",
+        type: "address[]",
         name: "",
-        internalType: "bool",
+        internalType: "address[]",
+      },
+      {
+        type: "uint256[]",
+        name: "",
+        internalType: "uint256[]",
       },
     ],
     stateMutability: "view",
   },
   {
     type: "function",
-    name: "issueCertificate",
-    inputs: [
-      {
-        type: "address",
-        name: "_recipient",
-        internalType: "address",
-      },
-      {
-        type: "string",
-        name: "_certificateType",
-        internalType: "string",
-      },
-      {
-        type: "string",
-        name: "_dateOfIssue",
-        internalType: "string",
-      },
-      {
-        type: "string",
-        name: "_ipfsHash",
-        internalType: "string",
-      },
-    ],
-    outputs: [],
-    stateMutability: "nonpayable",
-  },
-  {
-    type: "function",
-    name: "validateCertificate",
-    inputs: [
-      {
-        type: "string",
-        name: "_ipfsHash",
-        internalType: "string",
-      },
-    ],
+    name: "numberOfCampaigns",
+    inputs: [],
     outputs: [
       {
-        type: "bool",
+        type: "uint256",
         name: "",
-        internalType: "bool",
+        internalType: "uint256",
       },
     ],
     stateMutability: "view",

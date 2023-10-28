@@ -1,21 +1,35 @@
 import React, { useState, useEffect } from "react";
-import { search } from "../assets";
 import { useStateContext } from "../context";
 import { useAddress } from "@thirdweb-dev/react";
-import QRCode from "qrcode.react"; // Import the QRCode component
+
+const Card = ({ campaign }) => {
+  return (
+    <div className="max-w-sm rounded overflow-hidden shadow-lg">
+      <img src={campaign.imageUrl} alt={campaign.title} className="w-full" />
+      <div className="px-6 py-4">
+        <div className="font-bold text-xl mb-2">{campaign.title}</div>
+        <p className="text-gray-700 text-base">{campaign.description}</p>
+      </div>
+      <div className="px-6 py-4">
+        <p className="text-gray-700">Location: {campaign.location}</p>
+        <p className="text-gray-700">Data: {campaign.data}</p>
+      </div>
+    </div>
+  );
+};
 
 const Profile = () => {
   const address = useAddress();
   console.log(address);
   if (address === undefined) return;
-  const { getCertificateByAddress } = useStateContext();
-  const [certificateData, setCertificateData] = useState([]);
+  const { getCampaignByAddress } = useStateContext();
+  const [campaignData, setCampaignData] = useState([]);
 
   useEffect(() => {
     const getCall = async () => {
       try {
-        const data = await getCertificateByAddress(address);
-        setCertificateData(data);
+        const data = await getCampaignByAddress(address);
+        setCampaignData(data);
         console.log("contract call success");
       } catch (error) {
         console.log("contract call failure", error);
@@ -28,50 +42,16 @@ const Profile = () => {
     <div className="bg-[#1c1c24] flex justify-center items-center flex-col rounded-[10px] sm:p-10 p-4">
       <div className="flex justify-center items-center p-[16px] sm:min-w-[380px] bg-[#3a3a43] rounded-[10px] my-10">
         <h1 className="font-epilogue font-bold sm:text-[25px] text-[18px] leading-[38px] text-white">
-          All certificate
+          All campaign
         </h1>
       </div>
 
       <div className="container">
         <div>
-          {certificateData.length > 0 &&
-            certificateData[0].map((certificate, index) => (
-              <a
-                href={`https://bronze-mammoth-vicuna-556.mypinata.cloud/ipfs/${certificate.ipfsHash}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                key={index}
-              >
-                <div className="container_outer">
-                  <div className="container_inner">
-                    <h2 className="certificateNumber">
-                      Certificate {index + 1}
-                    </h2>
-                    <p>
-                      <span>Certificate Type:</span>{" "}
-                      {certificate.certificateType}
-                    </p>
-                    <p>
-                      <span>Date of Issue:</span> {certificate.dateOfIssue}
-                    </p>
-                    <p>
-                      <span>IPFS Hash</span> {certificate.ipfsHash}
-                    </p>
-                    <p>
-                      <span>Issuer:</span> {certificate.issuer}
-                    </p>
-                    <p>
-                      <span>Recipient:</span> {certificate.recipient}
-                    </p>
-                  </div>
-                  <div className="qr-code">
-                    <QRCode
-                      value={`https://bronze-mammoth-vicuna-556.mypinata.cloud/ipfs/${certificate.ipfsHash}`}
-                    />
-                  </div>
-                </div>
-              </a>
-            ))}
+          {campaignData.length > 0 &&
+            campaignData[0].map((campaignData, key) => {
+              <Card key={key} campaign={campaign} />;
+            })}
         </div>
       </div>
     </div>

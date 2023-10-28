@@ -7,6 +7,9 @@ const Payment = () => {
   return (
     <div>
       <div className="w-full py-[10rem] px-4 bg-white">
+        <h1 className="w-full  text-center bg-white pb-[100px] text-3xl">
+          Business model for future scope
+        </h1>
         <div className="max-w-[1240px] mx-auto grid md:grid-cols-3 gap-8">
           <div className="w-full shadow-xl flex flex-col p-4 my-4 rounded-lg hover:scale-105 duration-300">
             <img
@@ -15,7 +18,7 @@ const Payment = () => {
               alt="/"
             />
             <h2 className="text-2xl font-bold text-center py-8">Single User</h2>
-            <p className="text-center text-4xl font-bold">$49</p>
+            <p className="text-center text-4xl font-bold">₹49</p>
             <div className="text-center font-medium">
               <p className="py-2 border-b mx-8 mt-8">100 Certificates</p>
               <p className="py-2 border-b mx-8">1 Granted User</p>
@@ -32,7 +35,7 @@ const Payment = () => {
               alt="/"
             />
             <h2 className="text-2xl font-bold text-center py-8">Single User</h2>
-            <p className="text-center text-4xl font-bold">$99</p>
+            <p className="text-center text-4xl font-bold">₹99</p>
             <div className="text-center font-medium">
               <p className="py-2 border-b mx-8 mt-8">150 Certificates</p>
               <p className="py-2 border-b mx-8">1 Granted User</p>
@@ -49,7 +52,7 @@ const Payment = () => {
               alt="/"
             />
             <h2 className="text-2xl font-bold text-center py-8">Single User</h2>
-            <p className="text-center text-4xl font-bold">$149</p>
+            <p className="text-center text-4xl font-bold">₹149</p>
             <div className="text-center font-medium">
               <p className="py-2 border-b mx-8 mt-8">250 Certificates</p>
               <p className="py-2 border-b mx-8">1 Granted User</p>
