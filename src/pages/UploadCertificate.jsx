@@ -11,20 +11,23 @@ const UploadCertificate = () => {
   const JWT =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiI0MDJlMjExNC00NTMwLTRlMDYtODlkMy1hMGVmMzc1NzIxZDIiLCJlbWFpbCI6ImFyanVub21yYXlAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsInBpbl9wb2xpY3kiOnsicmVnaW9ucyI6W3siaWQiOiJGUkExIiwiZGVzaXJlZFJlcGxpY2F0aW9uQ291bnQiOjF9LHsiaWQiOiJOWUMxIiwiZGVzaXJlZFJlcGxpY2F0aW9uQ291bnQiOjF9XSwidmVyc2lvbiI6MX0sIm1mYV9lbmFibGVkIjpmYWxzZSwic3RhdHVzIjoiQUNUSVZFIn0sImF1dGhlbnRpY2F0aW9uVHlwZSI6InNjb3BlZEtleSIsInNjb3BlZEtleUtleSI6IjkzZWM2ZTUzZDRhODM1NWY4MjU5Iiwic2NvcGVkS2V5U2VjcmV0IjoiZmMxNzY4OTU1N2VjZWJjMTg3ZjcwNzczMjRkNTIyZmVmMWVjNzJhNWRhNjQ2YjdiM2IyNmEyY2EwYWE1ZTc4NSIsImlhdCI6MTY5NTEwMTkyOX0.zW1hN_0tn1prI-y4quZs-xGXo8vkeoyVasMEOj04jGU";
   const isLoading = false;
-  const { issueCertificate, getCertificate } = useStateContext();
+  const { publishCampaign } = useStateContext();
   const [form, setForm] = useState({
-    recipient: "",
-    certificateType: "",
-    issueDate: "",
-    ipfsHash: "",
+    title: "",
+    description: "",
+    location: "",
+    date: "",
+    duration: "",
+    deadline: 1,
+    imageIpfs: "",
   });
 
-  let certificateImage;
+  let image;
   const imageUploaded = async (e) => {
-    certificateImage = e.target.files[0];
-    console.log(certificateImage);
+    image = e.target.files[0];
+    console.log(image);
     const formData = new FormData();
-    formData.append("file", certificateImage);
+    formData.append("file", image);
     const headers = {
       "Content-Type": `multipart/form-data; boundary=${formData._boundary}`,
       Authorization: `Bearer ${JWT}`,
@@ -55,12 +58,10 @@ const UploadCertificate = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log({ ...form });
-    await issueCertificate({ ...form });
+    await publishCampaign({ ...form });
     navigate("/");
   };
-  const demo = async () => {
-    await getCertificate();
-  };
+
   return (
     <div className="bg-[#1c1c24] flex justify-center items-center flex-col rounded-[10px] sm:p-10 p-4">
       {isLoading && <Loader />}
@@ -76,39 +77,61 @@ const UploadCertificate = () => {
       >
         <div className="flex flex-wrap gap-[40px]">
           <FormField
-            labelName="Recipient address *"
-            placeholder="0xaaaaaaaaaaaaaaa"
+            labelName="Title *"
+            placeholder="Goa Beach cleaning"
             inputType="text"
-            value={form.recipient}
-            handleChange={(e) => handleFormFieldChange("recipient", e)}
+            value={form.title}
+            handleChange={(e) => handleFormFieldChange("title", e)}
           />
+
           <FormField
-            labelName="Certificate Type *"
-            placeholder="E.g. Blockchain basic Course"
+            labelName="location *"
+            placeholder="Goa"
             inputType="text"
-            value={form.certificateType}
-            handleChange={(e) => handleFormFieldChange("certificateType", e)}
+            value={form.location}
+            handleChange={(e) => handleFormFieldChange("location", e)}
           />
         </div>
 
         <div className="flex flex-wrap gap-[40px]">
           <FormField
-            labelName="Issue Date *"
-            placeholder="Issue Date"
-            inputType="date"
-            value={form.issueDate}
-            handleChange={(e) => handleFormFieldChange("issueDate", e)}
+            labelName="Description *"
+            placeholder="Requirement of volunteers, etc."
+            inputType="text"
+            value={form.description}
+            handleChange={(e) => handleFormFieldChange("description", e)}
           />
         </div>
 
         <FormField
-          labelName="Certificate Image *"
-          placeholder="Upload your certificate"
-          inputType="file"
-          value={certificateImage}
-          handleChange={(e) => imageUploaded(e)}
+          labelName="date *"
+          placeholder=""
+          inputType="date"
+          value={form.date}
+          handleChange={(e) => handleFormFieldChange("date", e)}
         />
 
+        <FormField
+          labelName="duration *"
+          placeholder="in hours e.g 5"
+          inputType="number"
+          value={form.duration}
+          handleChange={(e) => handleFormFieldChange("duration", e)}
+        />
+        <FormField
+          labelName="deadline *"
+          placeholder=""
+          inputType="number"
+          value={form.deadline}
+          handleChange={(e) => handleFormFieldChange("deadline", e)}
+        />
+        <FormField
+          labelName="Image *"
+          placeholder="cover image"
+          inputType="file"
+          value={image}
+          handleChange={(e) => imageUploaded(e)}
+        />
         <FormField
           labelName="IPFS Hash *"
           placeholder=""
@@ -126,7 +149,6 @@ const UploadCertificate = () => {
           />
         </div>
       </form>
-      <button onClick={demo}>getCertificate</button>
     </div>
   );
 };

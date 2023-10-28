@@ -5,38 +5,30 @@ import React, {
     useEffect,
     useState,
 } from "react";
-import {
-    useAddress,
-    useContract,
-    useMetamask,
-    useContractWrite,
-} from "@thirdweb-dev/react";
+import { useAddress, useMetamask } from "@thirdweb-dev/react";
+
 
 import Web3Modal from "web3modal";
 import { Contract, providers, utils } from "ethers";
-import { abi2, NFT_CONTRACT_ADDRESS_2 } from "../constants";
-import { ethers } from "ethers";
-import { EditionMetadataWithOwnerOutputSchema } from "@thirdweb-dev/sdk";
+import { abi, NFT_CONTRACT_ADDRESS } from "../constants";
 
 const StateContext = createContext();
 const Certificate = createContext();
 
 export const StateContextProvider = ({ children }) => {
-    // const { mutateAsync: issueCertificate } = useContractWrite(
-    //   contract,
-    //   "issueCertificate"
-    // );
-    const [walletConnected, setWalletConnected] = useState(false);
-    const address = useAddress();
-    const connect = useMetamask();
-    const web3ModalRef = useRef();
-    console.log(web3ModalRef);
-    let signer;
-    const getProviderOrSigner = async (needSigner = false) => {
-        // Connect to Metamask
-        // Since we store `web3Modal` as a reference, we need to access the `current` value to get access to the underlying object
-        const provider = await web3ModalRef.current.connect();
-        const web3Provider = new providers.Web3Provider(provider);
+
+  const [walletConnected, setWalletConnected] = useState(false);
+  const address = useAddress();
+  const connect = useMetamask();
+  const web3ModalRef = useRef();
+  console.log(web3ModalRef);
+  let signer;
+  const getProviderOrSigner = async (needSigner = false) => {
+    // Connect to Metamask
+    // Since we store `web3Modal` as a reference, we need to access the `current` value to get access to the underlying object
+    const provider = await web3ModalRef.current.connect();
+    const web3Provider = new providers.Web3Provider(provider);
+
 
         // If user is not connected to the Mumbai network, let them know and throw an error
         const { chainId } = await web3Provider.getNetwork();
@@ -73,81 +65,51 @@ export const StateContextProvider = ({ children }) => {
         }
     }, [walletConnected]);
 
-    const publishCertificate = async (form) => {
-        const signer = await getProviderOrSigner(true);
-        const contract = new Contract(NFT_CONTRACT_ADDRESS_2, abi2, signer);
-        console.log("uplading");
-        try {
-            const data = await contract.issueCertificate(
-                form.recipient,
-                form.certificateType,
-                form.issueDate,
-                form.ipfsHash
-            );
-            // console.log(form);
-            console.log("contract call success", data);
-        } catch (error) {
-            console.log("contract call failure", error);
-            alert("You are not a authorized issuer");
-        }
-    };
 
-    const getCertificate = async (ipfsHash) => {
-        const signer = await getProviderOrSigner(true);
-        const contract = new Contract(NFT_CONTRACT_ADDRESS_2, abi2, signer);
-        console.log("getting");
-        try {
-            const data = await contract.getCertificateByAddress(
-                "0x7543e79FBc62E0312f93811045773A8344c61CDC"
-            );
-            // console.log(form);
-            console.log("contract call success", data);
-            return data;
-        } catch (error) {
-            console.log("contract call failure", error);
-        }
-    };
+  const publishCampaign = async (form) => {
+    const signer = await getProviderOrSigner(true);
+    const contract = new Contract(NFT_CONTRACT_ADDRESS, abi, signer);
+    console.log("uplading");
+    try {
+      const data = await contract.createCampaign(
+        address,
+        form.title,
+        form.description,
+        form.location,
+        form.date,
+        form.duration,
+        form.deadline,
+        form.imageIpfs
+      );
+      console.log("contract call success", data);
+    } catch (error) {
+      console.log("contract call failure", error);
+    }
+  };
+  const getCampaignByAddress = async (form) => {
+    const signer = await getProviderOrSigner(true);
+    const contract = new Contract(NFT_CONTRACT_ADDRESS, abi, signer);
+    console.log("getting campaign by owner");
+    try {
+      const data = await contract.createCampaign(address);
+      console.log("contract call success", data);
+    } catch (error) {
+      console.log("contract call failure", error);
+    }
+  };
+  return (
+    <StateContext.Provider
+      value={{
+        address,
+        connect,
+        publishCampaign,
+        getCampaignByAddress,
+      }}
+    >
+      {children}
+    </StateContext.Provider>
+  );
 
-    const getCertificateByAddress = async (recipientAddress) => {
-        const signer = await getProviderOrSigner(true);
-        const contract = new Contract(NFT_CONTRACT_ADDRESS_2, abi2, signer);
-        console.log("getting by address");
-        try {
-            const pre_data = await contract.getCertificateByAddress(
-                recipientAddress
-            );
-            console.log(pre_data);
-
-            return [pre_data];
-        } catch (error) {
-            console.log("contract call failure", error);
-        }
-    };
-    const validateCertificate = async (certificatId) => {
-        const signer = await getProviderOrSigner(true);
-        const contract = new Contract(NFT_CONTRACT_ADDRESS_2, abi2, signer);
-        console.log("getting by address");
-        try {
-            const pre_data = await contract.validateCertificate(certificatId);
-            return pre_data;
-        } catch (error) {
-            console.log("contract call failure", error);
-        }
-    };
-    return (
-        <StateContext.Provider
-            value={{
-                address,
-                connect,
-                issueCertificate: publishCertificate,
-                getCertificate,
-                getCertificateByAddress,
-                validateCertificate,
-            }}
-        >
-            {children}
-        </StateContext.Provider>
-    );
 };
 
 export const useStateContext = () => useContext(StateContext);
