@@ -2,19 +2,29 @@ import React, { useState, useEffect } from "react";
 import { useStateContext } from "../context";
 
 
+
+
 const Card = ({ campaign }) => {
-  console.log(campaign);
   return (
-    <div className="max-w-sm rounded overflow-hidden shadow-lg">
-      {/* <img src={campaign[]} alt={campaign[2]} className="w-full" /> */}
+    <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white">
+      {/* <Link to={`/event/${campaign.id}`}> */}{" "}
+      {/* Assuming you have an "id" property in your campaign data */}
+      <img
+        src={`https://bronze-mammoth-vicuna-556.mypinata.cloud/ipfs/${campaign.imageIpfs}`}
+        alt={campaign.title}
+        className="w-full h-48 object-cover"
+      />
       <div className="px-6 py-4">
-        <div className="font-bold text-xl mb-2">{campaign[2]}</div>
-        <p className="text-gray-700 text-base">{campaign[3]}</p>
+        <div className="font-bold text-xl mb-2 text-red-500">
+          {campaign.title}
+        </div>
+        <p className="text-gray-700 text-base">{campaign.description}</p>
       </div>
       <div className="px-6 py-4">
-        <p className="text-gray-700">Location: {campaign[4]}</p>
-        <p className="text-gray-700">Data: {campaign[5]}</p>
+        <p className="text-gray-700">Location: {campaign.location}</p>
+        <p className="text-gray-700">Date: {campaign.date}</p>
       </div>
+      {/* </Link> */}
     </div>
   );
 };
@@ -47,13 +57,10 @@ const Validate = () => {
       </div>
 
       <div className="container">
-        <div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {campaignData.length > 0 &&
             campaignData.map((campaignData, key) => (
-              <div key={key}>
-                <p>Title: {campaignData[2]}</p>
-                <p>Description: {campaignData[3]}</p>
-              </div>
+              <Card key={key} campaign={campaignData} />
             ))}
         </div>
       </div>

@@ -4,20 +4,25 @@ import { useAddress } from "@thirdweb-dev/react";
 
 const Card = ({ campaign }) => {
   return (
-    <div className="max-w-sm rounded overflow-hidden shadow-lg">
-      <img src={campaign.imageUrl} alt={campaign.title} className="w-full" />
+    <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white">
+      <img
+        src={`https://bronze-mammoth-vicuna-556.mypinata.cloud/ipfs/${campaign.imageIpfs}`}
+        alt={campaign.title}
+        className="w-full h-48 object-cover"
+      />
       <div className="px-6 py-4">
-        <div className="font-bold text-xl mb-2">{campaign.title}</div>
+        <div className="font-bold text-xl mb-2 text-red-500">
+          {campaign.title}
+        </div>
         <p className="text-gray-700 text-base">{campaign.description}</p>
       </div>
       <div className="px-6 py-4">
         <p className="text-gray-700">Location: {campaign.location}</p>
-        <p className="text-gray-700">Data: {campaign.data}</p>
+        <p className="text-gray-700">Date: {campaign.date}</p>
       </div>
     </div>
   );
 };
-
 const Profile = () => {
   const address = useAddress();
   console.log(address);
@@ -48,12 +53,14 @@ const Profile = () => {
       </div>
 
       <div className="container">
-        <div>
+        <div className="grid grid-cols-2 gap-4">
           {campaignData.length > 0 &&
             campaignData.map((campaignData, key) => (
               <div key={key}>
-                <p>Title: {campaignData[2]}</p>
-                <p>Description: {campaignData[3]}</p>
+                {campaignData.owner !==
+                  "0x0000000000000000000000000000000000000000" && (
+                  <Card key={key} campaign={campaignData} />
+                )}
               </div>
             ))}
         </div>
