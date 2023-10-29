@@ -9,6 +9,7 @@
     "deploy": "yarn build && npx thirdweb@latest upload dist"
   },
   "dependencies": {
+    "@irys/sdk": "^0.0.4",
     "@thirdweb-dev/react": "^3",
     "@thirdweb-dev/sdk": "^3",
     "axios": "^1.5.0",

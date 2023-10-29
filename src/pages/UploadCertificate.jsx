@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import FormData from "form-data";
 import { useStateContext } from "../context";
+import Irys from "@irys/sdk";
 const UploadCertificate = () => {
   const navigate = useNavigate();
 
@@ -23,6 +24,50 @@ const UploadCertificate = () => {
   });
 
   let image;
+  // arweave
+  const getIrys = async () => {
+    const url = "https://devnet.irys.xyz";
+    const providerUrl = "https://rpc-mumbai.maticvigil.com/";
+    const token = "matic";
+
+    const irys = new Irys({
+      url, // URL of the node you want to connect to
+      token, // Token used for payment
+      key: 0x7543e79fbc62e0312f93811045773a8344c61cdc, // ETH or SOL private key
+      config: { providerUrl }, // Optional provider URL, only required when using Devnet
+    });
+    console.log(irys);
+    return irys;
+  };
+  const fundNode = async () => {
+    const irys = await getIrys();
+    try {
+      const fundTx = await irys.fund(irys.utils.toAtomic(0.05));
+      console.log(
+        `Successfully funded ${irys.utils.fromAtomic(fundTx.quantity)} ${
+          irys.token
+        }`
+      );
+    } catch (e) {
+      console.log("Error uploading data ", e);
+    }
+  };
+  const uploadFile = async (e) => {
+    const irys = await getIrys();
+    await fundNode();
+    // Your file
+    image = e.target.files[0];
+    const fileToUpload = image;
+
+    const tags = [{ name: "application-id", value: "MyNFTDrop" }];
+
+    try {
+      const receipt = await irys.uploadFile(fileToUpload, { tags });
+      console.log(`File uploaded ==> https://gateway.irys.xyz/${receipt.id}`);
+    } catch (e) {
+      console.log("Error uploading file ", e);
+    }
+  };
   const imageUploaded = async (e) => {
     image = e.target.files[0];
     console.log(image);
@@ -41,14 +86,14 @@ const UploadCertificate = () => {
         }
       );
       console.log(res.data);
-      handleFormFieldChange("ipfsHash", res.data.IpfsHash);
+      handleFormFieldChange("imageIpfs", res.data.IpfsHash);
     } catch (error) {
       console.log(error);
     }
   };
 
   const handleFormFieldChange = (fieldName, e) => {
-    if (fieldName === "ipfsHash") {
+    if (fieldName === "imageIpfs") {
       setForm({ ...form, [fieldName]: e });
     } else {
       setForm({ ...form, [fieldName]: e.target.value });
@@ -67,7 +112,7 @@ const UploadCertificate = () => {
       {isLoading && <Loader />}
       <div className="flex justify-center items-center p-[16px] sm:min-w-[380px] bg-[#3a3a43] rounded-[10px]">
         <h1 className="font-epilogue font-bold sm:text-[25px] text-[18px] leading-[38px] text-white">
-          Upload Certificate
+          Create Campaign
         </h1>
       </div>
 
@@ -133,18 +178,18 @@ const UploadCertificate = () => {
           handleChange={(e) => imageUploaded(e)}
         />
         <FormField
-          labelName="IPFS Hash *"
+          labelName="imageIpfs *"
           placeholder=""
           inputType="text"
-          value={form.ipfsHash}
+          value={form.imageIpfs}
           readOnly={true}
-          handleChange={(e) => handleFormFieldChange("ipfsHash", e)}
+          handleChange={(e) => handleFormFieldChange("imageIpfs", e)}
         />
 
         <div className="flex justify-center items-center mt-[40px]">
           <CustomButton
             btnType="upload"
-            title="Upload Certificate"
+            title="Create Campaign"
             styles="bg-[#1dc071]"
           />
         </div>
