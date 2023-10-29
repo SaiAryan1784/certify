@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useStateContext } from "../context";
 
+
 const Card = ({ campaign }) => {
   console.log(campaign);
   return (
@@ -17,6 +18,7 @@ const Card = ({ campaign }) => {
     </div>
   );
 };
+
 
 const Validate = () => {
   const { getCampaigns } = useStateContext();
