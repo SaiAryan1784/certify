@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useStateContext } from "../context";
-import { Link } from "react-router-dom";
+
+
+
+
 const Card = ({ campaign }) => {
   return (
     <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white">
@@ -25,6 +28,7 @@ const Card = ({ campaign }) => {
     </div>
   );
 };
+
 
 const Validate = () => {
   const { getCampaigns } = useStateContext();

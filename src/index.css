@@ -5,32 +5,32 @@
 @tailwind utilities;
 
 .linear-gradient {
-  background: linear-gradient(
-    179.14deg,
-    rgba(32, 18, 63, 0) -7.14%,
-    #000000 87.01%
-  );
+    background: linear-gradient(
+        179.14deg,
+        rgba(32, 18, 63, 0) -7.14%,
+        #000000 87.01%
+    );
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator {
-  cursor: pointer;
-  filter: invert(0.8);
+    cursor: pointer;
+    filter: invert(0.8);
 }
 .container {
-  border-radius: 1rem;
-  width: 70%;
-  padding: 2rem;
-  color: white;
-  background-color: rgb(43, 39, 39);
-  margin-bottom: 1rem;
+    border-radius: 1rem;
+    width: 70%;
+    padding: 2rem;
+    color: white;
+    background-color: rgb(43, 39, 39);
+    margin-bottom: 1rem;
 }
 .container_inner {
-  border-radius: 1rem;
-  width: 100%;
-  padding: 2rem;
-  color: white;
-  background-color: rgba(255, 255, 255, 0.124);
-  margin-bottom: 1rem;
+    border-radius: 1rem;
+    width: 100%;
+    padding: 2rem;
+    color: white;
+    background-color: rgba(255, 255, 255, 0.124);
+    margin-bottom: 1rem;
 }
 .certificateNumber {
   text-align: center;
@@ -39,10 +39,29 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   font-weight: bold;
   text-decoration: underline;
   margin-bottom: 25px;
+
 }
 
 span {
-  color: #1dc071;
+    color: #1dc071;
+}
+.valid {
+    font-size: 2rem;
+    font-weight: bolder;
+    color: #1dc071;
+}
+.invalid {
+    font-size: 2rem;
+    font-weight: bolder;
+    color: red;
+}
+.search_iconbox {
+    margin-left: 1rem;
+}
+#txt {
+    text-align: center;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
 }
 .valid {
   font-size: 2rem;
