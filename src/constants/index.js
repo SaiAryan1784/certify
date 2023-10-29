@@ -8,7 +8,7 @@ import {
 } from "../assets";
 
 export const NFT_CONTRACT_ADDRESS =
-  "0x2Fa6CA0C37CFB0E7311a1573F5a9E69148fe1077";
+  "0x7950815232DedD221bAE305eB4f9388d1a713528";
 export const abi = [
   {
     type: "function",
@@ -168,6 +168,102 @@ export const abi = [
     type: "function",
     name: "getCampaigns",
     inputs: [],
+    outputs: [
+      {
+        type: "tuple[]",
+        name: "",
+        components: [
+          {
+            type: "uint256",
+            name: "id",
+            internalType: "uint256",
+          },
+          {
+            type: "address",
+            name: "owner",
+            internalType: "address",
+          },
+          {
+            type: "string",
+            name: "title",
+            internalType: "string",
+          },
+          {
+            type: "string",
+            name: "description",
+            internalType: "string",
+          },
+          {
+            type: "string",
+            name: "location",
+            internalType: "string",
+          },
+          {
+            type: "string",
+            name: "date",
+            internalType: "string",
+          },
+          {
+            type: "string",
+            name: "duration",
+            internalType: "string",
+          },
+          {
+            type: "uint256",
+            name: "deadline",
+            internalType: "uint256",
+          },
+          {
+            type: "uint256",
+            name: "amountCollected",
+            internalType: "uint256",
+          },
+          {
+            type: "string",
+            name: "imageIpfs",
+            internalType: "string",
+          },
+          {
+            type: "address[]",
+            name: "participantsAddress",
+            internalType: "address[]",
+          },
+          {
+            type: "uint256",
+            name: "numberOfParticipants",
+            internalType: "uint256",
+          },
+          {
+            type: "address[]",
+            name: "donators",
+            internalType: "address[]",
+          },
+          {
+            type: "uint256[]",
+            name: "donations",
+            internalType: "uint256[]",
+          },
+          {
+            type: "bool",
+            name: "closed",
+            internalType: "bool",
+          },
+        ],
+        internalType: "struct CrowdFunding.Campaign[]",
+      },
+    ],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
+    name: "getCampaignsByAddress",
+    inputs: [
+      {
+        type: "address",
+        name: "_owner",
+        internalType: "address",
+      },
+    ],
     outputs: [
       {
         type: "tuple[]",
