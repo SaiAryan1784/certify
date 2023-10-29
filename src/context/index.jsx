@@ -86,13 +86,27 @@ export const StateContextProvider = ({ children }) => {
       console.log("contract call failure", error);
     }
   };
-  const getCampaignByAddress = async (form) => {
+  const getCampaignByAddress = async () => {
     const signer = await getProviderOrSigner(true);
     const contract = new Contract(NFT_CONTRACT_ADDRESS, abi, signer);
     console.log("getting campaign by owner");
     try {
-      const data = await contract.createCampaign(address);
+      const data = await contract.getCampaignsByAddress(address);
       console.log("contract call success", data);
+      return data;
+    } catch (error) {
+      console.log("contract call failure", error);
+    }
+  };
+
+  const getCampaigns = async () => {
+    const signer = await getProviderOrSigner(true);
+    const contract = new Contract(NFT_CONTRACT_ADDRESS, abi, signer);
+    console.log("getting all campaign");
+    try {
+      const data = await contract.getCampaigns();
+      console.log("contract call success", data);
+      return data;
     } catch (error) {
       console.log("contract call failure", error);
     }
@@ -104,6 +118,7 @@ export const StateContextProvider = ({ children }) => {
         connect,
         publishCampaign,
         getCampaignByAddress,
+        getCampaigns,
       }}
     >
       {children}
